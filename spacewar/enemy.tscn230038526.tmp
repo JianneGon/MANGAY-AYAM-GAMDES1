@@ -1,0 +1,10 @@
+[gd_scene load_steps=2 format=3 uid="uid://bpejuwxfr0q6n"]
+
+[ext_resource type="Texture2D" uid="uid://deudv0h5coni8" path="res://meteor.png" id="1_7k104"]
+
+[node name="Enemy" type="Node2D"]
+
+[node name="Enemy1" type="Sprite2D" parent="."]
+position = Vector2(60.4141, 57.6387)
+scale = Vector2(0.0467109, 0.0465221)
+texture = ExtResource("1_7k104")

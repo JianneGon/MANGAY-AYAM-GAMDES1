@@ -1,0 +1,28 @@
+[gd_scene load_steps=4 format=3 uid="uid://0ie4ismvh4c7"]
+
+[ext_resource type="Texture2D" uid="uid://dqp6m0vdehjmy" path="res://bg2.png" id="1_oi3di"]
+[ext_resource type="PackedScene" uid="uid://bvqw6uoeqlk1i" path="res://PlayerShip.tscn" id="2_0b4ue"]
+[ext_resource type="PackedScene" uid="uid://bpejuwxfr0q6n" path="res://enemy.tscn" id="3_f2txt"]
+
+[node name="Level" type="Node2D"]
+
+[node name="Background" type="Sprite2D" parent="."]
+light_mask = 513
+position = Vector2(578, 312)
+scale = Vector2(1.43207, 1.14427)
+texture = ExtResource("1_oi3di")
+
+[node name="Player" parent="." instance=ExtResource("2_0b4ue")]
+position = Vector2(503, 508)
+
+[node name="Enemy" parent="." instance=ExtResource("3_f2txt")]
+position = Vector2(51, -255)
+
+[node name="Enemy2" parent="." instance=ExtResource("3_f2txt")]
+position = Vector2(453, -340)
+
+[node name="Enemy3" parent="." instance=ExtResource("3_f2txt")]
+position = Vector2(781, -91)
+
+[node name="Enemy4" parent="." instance=ExtResource("3_f2txt")]
+position = Vector2(309, -709)

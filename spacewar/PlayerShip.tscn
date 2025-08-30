@@ -1,0 +1,13 @@
+[gd_scene load_steps=3 format=3 uid="uid://bvqw6uoeqlk1i"]
+
+[ext_resource type="Script" uid="uid://dg7fg8jxrveb0" path="res://PlayerShip.gd" id="1_cq0mr"]
+[ext_resource type="Texture2D" uid="uid://duke3p5htmqn" path="res://xoo.png" id="2_cq0mr"]
+
+[node name="Player" type="Node2D"]
+script = ExtResource("1_cq0mr")
+
+[node name="PlayerShip1" type="Sprite2D" parent="."]
+position = Vector2(64, 66)
+rotation = -3.14049
+scale = Vector2(0.181428, 0.190923)
+texture = ExtResource("2_cq0mr")
