@@ -3,11 +3,17 @@
 [ext_resource type="Script" uid="uid://dg7fg8jxrveb0" path="res://PlayerShip.gd" id="1_cq0mr"]
 [ext_resource type="Texture2D" uid="uid://duke3p5htmqn" path="res://xoo.png" id="2_cq0mr"]
 
-[node name="Player" type="Node2D"]
+[node name="Player" type="CharacterBody2D" groups=["Player"]]
+collision_mask = 2
 script = ExtResource("1_cq0mr")
 
 [node name="PlayerShip1" type="Sprite2D" parent="."]
-position = Vector2(64, 66)
+position = Vector2(116.71, 93.9434)
 rotation = -3.14049
-scale = Vector2(0.181428, 0.190923)
+scale = Vector2(0.323644, 0.290932)
 texture = ExtResource("2_cq0mr")
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]
+position = Vector2(116.71, 92.9434)
+scale = Vector2(19.961, 14.0699)
+polygon = PackedVector2Array(-0.0893678, -5.19855, 0.178736, -4.11552, 0.446839, -2.16606, 0.714943, -1.62455, 0.714943, -3.03249, 1.07241, -3.03249, 1.07241, -1.40794, 1.60862, -1.40794, 1.69799, -2.92418, 2.14483, -2.81588, 2.41293, -1.29964, 3.30661, -0.974728, 4.46839, -0.758122, 4.37902, 0.108303, 3.75345, 0.758122, 2.7704, 0.974728, 2.32356, 1.40794, 2.05546, 3.14079, 1.87672, 3.4657, 1.34052, 1.08303, 0.625575, 1.73285, 0.178736, 4.98194, 0, 5.41515, -0.893678, 1.40794, -1.42989, 1.08303, -1.87672, 3.24909, -2.5023, 1.08303, -3.21724, 0.649819, -4.02155, 0.541515, -4.46839, -0.108303, -4.46839, -0.974728, -3.39598, -0.866425, -3.30661, -1.19133, -2.41293, -1.19133, -2.14483, -2.81588, -1.78736, -2.81588, -1.51925, -1.40794, -0.983046, -1.51624, -0.983046, -2.92418, -0.714943, -3.03249, -0.625575, -1.94946)

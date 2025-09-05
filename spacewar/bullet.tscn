@@ -1,9 +1,14 @@
-[gd_scene load_steps=3 format=3 uid="uid://umiv2idrdvc2"]
+[gd_scene load_steps=4 format=3 uid="uid://umiv2idrdvc2"]
 
 [ext_resource type="Texture2D" uid="uid://co5ou0n8p6h3u" path="res://laser.png" id="1_v7oki"]
 [ext_resource type="Script" uid="uid://dut4ucmwsr3f2" path="res://bullet.gd" id="1_v8qja"]
 
-[node name="Bullet" type="Node2D"]
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_v8qja"]
+size = Vector2(25, 81.5)
+
+[node name="Bullet" type="Area2D"]
+collision_layer = 4
+collision_mask = 2
 script = ExtResource("1_v8qja")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
@@ -12,8 +17,6 @@ rotation = -1.57668
 scale = Vector2(0.276084, 0.298686)
 texture = ExtResource("1_v7oki")
 
-[node name="Area2D" type="Area2D" parent="."]
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
-
-[connection signal="area_entered" from="Area2D" to="." method="_on_area_2d_area_entered"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(66.5, 76)
+shape = SubResource("RectangleShape2D_v8qja")

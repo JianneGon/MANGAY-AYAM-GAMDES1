@@ -1,72 +1,66 @@
-extends Node2D  # Assuming Playership1 is a Node2D
+extends CharacterBody2D
 
-# Speed of the ship's movement
-var speed: int = 400
+# Exported variable for easy adjustment in the editor
+@export var speed: int = 500
 
-# Screen width to keep the ship inside the frame
-var screen_width: int = 1024  # Adjust according to your resolution
-var screen_height: int = 600  # Adjust according to your resolution
+# Screen dimensions
+var screen_width: int = 1024
+var screen_height: int = 600
 
 # Laser variables
-var laser_scene = preload("res://bullet.tscn")  # Path to your Laser scene
-var laser_cooldown: float = 0.2  # Cooldown time between shots (in seconds)
-var last_shot_time: float = 0  # Time of the last shot
+var laser_scene = preload("res://bullet.tscn")
+var laser_cooldown: float = 0.2
+var last_shot_time: float = 0.0
 
+# Called when the node enters the scene tree for the first time
+func _ready():
+	# Starting position
+	position = Vector2(200, 500)
+	# Ship scale
+	scale = Vector2(0.5, 0.5)
+
+# Called every frame, delta is the elapsed time since the last frame
 func _process(delta):
-	# Movement input (Arrow keys and WASD)
-	if Input.is_action_pressed("ui_right") or Input.is_action_pressed("move_right"):
-		position.x += speed * delta  # Move right
-	if Input.is_action_pressed("ui_left") or Input.is_action_pressed("move_left"):
-		position.x -= speed * delta  # Move left
-	
-	if Input.is_action_pressed("ui_up") or Input.is_action_pressed("move_up"):
-		position.y -= speed * delta  # Move up
-	if Input.is_action_pressed("ui_down") or Input.is_action_pressed("move_down"):
-		position.y += speed * delta  # Move down
+	# Get input vector (WASD/arrow keys must be mapped in InputMap: "left","right","up","down")
+	var direction = Input.get_vector("left", "right", "up", "down")
+	velocity = direction * speed
+	move_and_slide()
 
-	# Keep Playership1 inside the screen bounds
-	position.x = clamp(position.x, 0, screen_width)  # Clamp X position to the screen width
-	position.y = clamp(position.y, 0, screen_height - 100)  # Clamp Y position to the screen height
+	# Clamp ship inside screen
+	position.x = clamp(position.x, 0, screen_width)
+	position.y = clamp(position.y, 0, screen_height - 100)
 
-	# Fire laser when Spacebar is pressed, with cooldown management
-	if Input.is_action_just_pressed("ui_accept") and last_shot_time >= laser_cooldown:
-		fire_laser(delta)
-
-	# Handle laser firing cooldown
-	last_shot_time += delta  # Increment cooldown timer by delta time
-	if last_shot_time >= laser_cooldown:
-		last_shot_time = laser_cooldown  # Clamp to the cooldown value
-
+	# Fire laser with cooldown
+	last_shot_time += delta
+	if Input.is_action_pressed("ui_accept") and last_shot_time >= laser_cooldown:
+		fire_laser()
 
 # Laser firing function
-func fire_laser(delta):
-	last_shot_time = 0  # Reset cooldown
-
-	# Check if laser scene is loaded properly
+func fire_laser():
+	
+	last_shot_time = 0.0
+		
 	if laser_scene == null:
 		print_debug("Laser scene failed to load!")
 		return
 
-	# Create an instance of the laser
-	var laser = laser_scene.instance()
-
-	# Check if the laser instance is valid
+	var laser = preload("res://bullet.tscn").instantiate()
+	laser.position = position + Vector2(0, -20)
+	get_parent().add_child(laser)
 	if laser == null:
 		print_debug("Failed to instantiate laser!")
 		return
 
-	# Set the laser's starting position just above the Playership1
-	laser.position = position + Vector2(0, -20)  # Adjust offset if needed
-
-	# Add the laser to the scene
+	# Start laser just above the ship
+	laser.position = position + Vector2(0, -20)
 	get_parent().add_child(laser)
-	print_debug("Laser fired at position: ", laser.position)  # Debugging
+	print_debug("Laser fired at position: ", laser.position)
 
-	# Ensure laser doesn't move off-screen by limiting its movement
-	laser.connect("tree_entered", self, "_on_laser_entered")
+	# Optional: connect to cleanup if bullet goes off-screen
+	laser.connect("tree_entered", Callable(self, "_on_laser_entered"))
 
-# This function will ensure laser is removed once it's off-screen
+# Cleanup when laser leaves screen
 func _on_laser_entered():
-	var laser = get_parent().get_node("Laser")  # Assuming your laser node is named Laser
-	if laser.position.y < 0 or laser.position.y > screen_height:
-		laser.queue_free()  # Free the laser node if it goes off-screen
+	for child in get_parent().get_children():
+		if child.name == "Laser" and (child.position.y < 0 or child.position.y > screen_height):
+			child.queue_free()

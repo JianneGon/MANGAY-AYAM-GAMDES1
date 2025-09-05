@@ -5,20 +5,18 @@
 [sub_resource type="CompressedTexture2D" id="CompressedTexture2D_7k104"]
 load_path = "res://.godot/imported/meteorr.png-fba78ffb58a59988502c39a5e47af302.ctex"
 
-[node name="Enemy" type="Area2D" groups=["Enemy"]]
+[node name="Enemy" type="Area2D"]
 scale = Vector2(1, 1.07503)
-collision_layer = 2
-collision_mask = 5
 script = ExtResource("1_4gyqm")
 
-[node name="EnemySprite" type="Sprite2D" parent="."]
+[node name="Enemy1" type="Sprite2D" parent="."]
 position = Vector2(60.4141, 57.6387)
 scale = Vector2(0.14284, 0.154251)
 texture = SubResource("CompressedTexture2D_7k104")
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]
-position = Vector2(76, 60.4634)
-scale = Vector2(4.39592, 5.47295)
+position = Vector2(80, 60.4637)
+scale = Vector2(6.82661, 5.47295)
 polygon = PackedVector2Array(-5.27348, 6.11874, -3.22268, 4.41909, -2.92971, 2.71944, 0.878914, 1.35972, 2.92971, 0.509894, 6.44536, -3.73923, 6.59185, -5.77881, 3.66214, -3.3993, 1.90431, -2.8894, 2.92971, -4.92898, 0.585942, -4.75902, -1.46486, -3.22933, -2.34377, -2.54947, -3.22268, -1.52968, -3.22268, -2.71944, -4.98051, -1.01979, -7.17779, 0.849825, -7.91022, 2.54947, -7.61725, 4.41909, -6.73834, 5.94877)
 
 [connection signal="body_entered" from="." to="." method="_on_body_entered"]

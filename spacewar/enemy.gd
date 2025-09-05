@@ -1,18 +1,47 @@
-extends Node2D  # Assuming meteors are of type Node2D
+extends Area2D  # Assuming meteors are of type Node2D
 
-# Meteor speed (can be randomized for variety)
-var speed: float = 200  # Speed of the meteor's fall
-var screen_height: int = 600  # Screen height (adjust this based on your game resolution)
-
+var speed: int
+var rotation_speed: int
+var direction_x: float
 func _ready():
-	# You can initialize a random speed or direction if desired
-	speed = randf_range(150.0, 300.0)  # Randomize speed between 150 and 300 units per second
+	connect("body_entered", Callable(self, "_on_Enemy_body_entered"))
+	var rng:= RandomNumberGenerator.new()
+	# start position
+	var path: String = "res://graphics/EnemySprite/" + str(rng.randi_range(1, 2)) + ".png"
+	$EnemySprite.texture = load(path)
+	add_to_group("Enemy")  # ensures bullets can detect it
+	
 
+	var width = get_viewport().get_visible_rect().size[0]
+	# print(width) just checking the size of the viewport window
+	var random_x = rng.randi_range(0,width)
+	var random_y = rng.randi_range(-150,-50)
+	position = Vector2(random_x, random_y)
+	# randomize meteor size
+	var random_scale =randf_range(0.15,.5)
+	scale = Vector2(random_scale,random_scale)
+	# speed / rotation / direction randomizer
+	speed =rng.randi_range(200,500)
+	direction_x = rng.randf_range(-1,1)
 func _process(delta):
-	# Move the meteor downwards
-	position.y += speed * delta
+	position += Vector2(direction_x, 1.0) * speed * delta
+	rotation_degrees += rotation_speed * delta
+	for b in get_overlapping_bodies():
+		print("Overlapping with:", b.name)
 
-	# If the meteor goes off the bottom of the screen, reset it to the top
-	if position.y > screen_height:
-		position.y = -10  # Set it slightly above the screen
-		position.x = randf_range(0.0, get_viewport().size.x)  # Randomize the X position to spread the meteors
+
+func _on_Enemy_body_entered(body: Node) -> void:
+	if body.is_in_group("Player"):
+		print("Enemy hit by PLAYER!")
+		queue_free()  # Enemy dies
+	elif body.is_in_group("Bullet"):
+		print("Enemy hit by BULLET!")
+		queue_free()
+	else:
+		print("Ignored collision with:", body.name)
+
+	
+
+
+func _on_body_entered(body: Node) -> void:
+	print("Enemy hit by: ", body.name)

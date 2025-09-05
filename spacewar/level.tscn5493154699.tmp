@@ -6,7 +6,7 @@
 [ext_resource type="PackedScene" uid="uid://bpejuwxfr0q6n" path="res://enemy.tscn" id="3_f2txt"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_oi3di"]
-size = Vector2(52, 699)
+size = Vector2(25, 686)
 
 [node name="Level" type="Node2D"]
 script = ExtResource("1_0b4ue")
@@ -23,40 +23,46 @@ position = Vector2(503, 508)
 [node name="Enemy" parent="." instance=ExtResource("3_f2txt")]
 position = Vector2(51, -255)
 
+[node name="Enemy2" parent="." instance=ExtResource("3_f2txt")]
+position = Vector2(453, -340)
+
+[node name="Enemy3" parent="." instance=ExtResource("3_f2txt")]
+position = Vector2(781, -91)
+
+[node name="Enemy4" parent="." instance=ExtResource("3_f2txt")]
+position = Vector2(309, -709)
+
 [node name="Borders" type="Node2D" parent="."]
 
 [node name="StaticBody2D" type="StaticBody2D" parent="Borders"]
-position = Vector2(6, -3)
-scale = Vector2(0.454989, 1)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Borders/StaticBody2D"]
-position = Vector2(24, 307.5)
+position = Vector2(13.5, 312)
 shape = SubResource("RectangleShape2D_oi3di")
 
 [node name="StaticBody2D2" type="StaticBody2D" parent="Borders"]
-position = Vector2(1050, -34)
-rotation = 1.57229
-scale = Vector2(0.794268, 1.5635)
+position = Vector2(1126, -2)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Borders/StaticBody2D2"]
-position = Vector2(24, 307.5)
+position = Vector2(13.5, 312)
 shape = SubResource("RectangleShape2D_oi3di")
 
 [node name="StaticBody2D3" type="StaticBody2D" parent="Borders"]
-position = Vector2(1061, 628)
-rotation = 1.57229
-scale = Vector2(0.794268, 1.5635)
+position = Vector2(1084, -33)
+rotation = 1.5665
+scale = Vector2(1.00117, 1.6206)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Borders/StaticBody2D3"]
-position = Vector2(24, 307.5)
+position = Vector2(13.5, 312)
 shape = SubResource("RectangleShape2D_oi3di")
 
 [node name="StaticBody2D4" type="StaticBody2D" parent="Borders"]
-position = Vector2(1122, 0)
-scale = Vector2(0.710097, 1.01365)
+position = Vector2(1075, 627)
+rotation = 1.5665
+scale = Vector2(1.00117, 1.6206)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Borders/StaticBody2D4"]
-position = Vector2(24, 307.5)
+position = Vector2(13.5, 312)
 shape = SubResource("RectangleShape2D_oi3di")
 
 [node name="MeteorTimer" type="Timer" parent="."]
